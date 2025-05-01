@@ -1,0 +1,119 @@
+import 'package:flutter/material.dart';
+import '../functions/other_functions.dart';
+
+class OrderTile extends StatelessWidget {
+  final Map<String, dynamic> order;
+  const OrderTile({
+    super.key,
+    required this.order,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.all(5),
+      padding: const EdgeInsets.all(5),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(15),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Icon(Icons.calendar_month),
+                Text(
+                  order["date"],
+                  textScaler: TextScaler.linear(1),
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+                const Spacer(),
+                Text(
+                  order["status"],
+                  textScaler: TextScaler.linear(1),
+                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                        color: order["status"] == "Pending"
+                            ? Theme.of(context).colorScheme.primary
+                            : order["status"] == "Delivered"
+                                ? Colors.green
+                                : Colors.black,
+                      ),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(15),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Icon(Icons.watch_later_outlined),
+                Text(
+                  order["orderTime"],
+                  textScaler: TextScaler.linear(1),
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(15),
+            child: Text(
+              "Total amount: ₹${order["total"]}",
+              textScaler: TextScaler.linear(1),
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(15),
+            child: Text(
+              "Items",
+              textScaler: TextScaler.linear(1),
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(15),
+            child: ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemBuilder: (context, index) {
+                List<List> items =
+                    OtherFunctions.getItemFromMap(order["items"]);
+                List itemName = items[0];
+                List itemQuantity = items[1];
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      itemName[index],
+                      textScaler: TextScaler.linear(1),
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            color: Theme.of(context).colorScheme.secondary,
+                          ),
+                    ),
+                    Text(
+                      itemQuantity[index],
+                      textScaler: TextScaler.linear(1),
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            color: Theme.of(context).colorScheme.secondary,
+                          ),
+                    ),
+                  ],
+                );
+              },
+              itemCount: order["items"].length,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

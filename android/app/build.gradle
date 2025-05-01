@@ -1,0 +1,60 @@
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    id "dev.flutter.flutter-gradle-plugin" 
+    id "com.google.gms.google-services"
+}
+
+android {
+    namespace "com.jingola.jingola_grocery"
+    compileSdk 34 // ✅ Replace flutter.compileSdkVersion with a hardcoded value
+    ndkVersion "25.2.9519653" // ✅ Replace with your actual NDK version
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17 // ✅ Use Java 17 for latest support
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = "17"
+    }
+
+    defaultConfig {
+        applicationId "com.jingola.jingola_grocery"
+        minSdk 23 // ✅ Replace flutter.minSdkVersion with a hardcoded value
+        targetSdk 34 // ✅ Replace flutter.targetSdkVersion with a hardcoded value
+        versionCode 2004
+        versionName "1.0.4"
+    }
+
+    buildFeatures {
+        buildConfig true // ✅ Ensure this is present
+    }
+
+    signingConfigs {
+        debug {
+            storeFile file("debug.keystore")
+            storePassword "android"
+            keyAlias "androiddebugkey"
+            keyPassword "android"
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.debug // ✅ Ensure debug signing config exists
+        }
+    }
+}
+
+flutter {
+    source "../.."
+}
+
+// dependencies {
+//     implementation 'androidx.appcompat:appcompat:1.6.1'
+//     implementation 'com.google.android.material:material:1.11.0'\
+//     implementation 'com.google.firebase:firebase-auth:22.3.1'
+//     implementation 'com.google.android.gms:play-services-integrity:20.1.0'
+//     implementation 'com.google.firebase:firebase-core:21.1.1'
+// }

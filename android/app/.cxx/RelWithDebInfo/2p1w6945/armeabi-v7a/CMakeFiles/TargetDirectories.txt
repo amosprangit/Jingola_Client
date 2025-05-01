@@ -1,0 +1,2 @@
+C:/Users/user/Desktop/Flutter/jingola_client/jingola/android/app/.cxx/RelWithDebInfo/2p1w6945/armeabi-v7a/CMakeFiles/edit_cache.dir
+C:/Users/user/Desktop/Flutter/jingola_client/jingola/android/app/.cxx/RelWithDebInfo/2p1w6945/armeabi-v7a/CMakeFiles/rebuild_cache.dir
